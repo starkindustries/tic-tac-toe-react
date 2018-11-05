@@ -2,17 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
-    render() {
-      return (
-        <button 
-            className="square" 
-            onClick={ () =>  this.props.onClick()}>
-            {this.props.value}
-        </button>
-      );
-    }
-  }    
+/***************************
+ * Note
+ * When we modified the Square to be a function component, we also changed 
+ * onClick={() => this.props.onClick()} to a shorter onClick={props.onClick} 
+ * (note the lack of parentheses on both sides). In a class, we used an arrow 
+ * function to access the correct this value, but in a function component we don’t 
+ * need to worry about this.
+ ***************************/
+function Square(props) {
+    return (
+    <button 
+        className="square" 
+        onClick={ props.onClick }>
+        { props.value }
+    </button>
+    );    
+}
 
 /***************************
  * Note
