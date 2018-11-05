@@ -1,6 +1,5 @@
 # Tic Tac Toe with React
-## from Tutorial: Intro to React
-https://reactjs.org/tutorial/tutorial.html
+**From [Tutorial: Intro to React](https://reactjs.org/tutorial/tutorial.html)**
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
