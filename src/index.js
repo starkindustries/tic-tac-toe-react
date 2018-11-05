@@ -112,6 +112,7 @@ class Game extends React.Component {
             // console.log("Current move: " + currentMove);            
             return (                
                 <li key = {moveIndex}>
+                    { moveIndex > 0 ? calculateMoveLocation(currentMove.squares, history[moveIndex-1].squares) : ""}
                     <button onClick={() => this.jumpTo(moveIndex)}>{description}</button>
                     { step === moveIndex ? " <== selected" : "" }
                 </li>                
@@ -150,6 +151,18 @@ ReactDOM.render(
     <Game />,
     document.getElementById('root')
 );
+
+function calculateMoveLocation(currentSquares, previousSquares) {    
+    for(let i=0; i<9; i++) {
+        // console.log(currentSquares[i]);
+        // console.log(previousSquares[i]);
+        if (currentSquares[i] !== previousSquares[i]) {             
+            let col = (i % 3) + 1;
+            let row = (i - (i%3))/3  + 1;
+            return "(col:" + col + ", row:" + row + ")";
+        }
+    }
+}
 
 function calculateWinner(squares) {
     const lines = [
