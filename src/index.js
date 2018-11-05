@@ -68,6 +68,7 @@ class Game extends React.Component {
             }],
             xIsNext: true,
             stepNumber: 0,
+            ascending: true,
         }
     }
 
@@ -95,6 +96,12 @@ class Game extends React.Component {
         })
     }
 
+    handleToggleAscending() {
+        this.setState({
+            ascending: !this.state.ascending,
+        });        
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.stepNumber];
@@ -109,11 +116,26 @@ class Game extends React.Component {
             return (                
                 <li key = {moveIndex}>
                     { moveIndex > 0 ? calculateMoveLocation(currentMove.squares, history[moveIndex-1].squares) : ""}
-                    <button onClick={() => this.jumpTo(moveIndex)}>{description}</button>
+                    <button onClick={() => this.jumpTo(moveIndex)}>{description}</button>                    
                     { step === moveIndex ? " <== selected" : "" }
                 </li>                
             );
         })
+        
+        let movesList;
+        if (!this.state.ascending) {
+            let movesDescending = [];
+            for(var i=0; i<moves.length; i++) {
+                movesDescending.unshift(moves[i]);
+            }
+            movesList = (
+                <ol reversed> {movesDescending} </ol>
+            );
+        } else {
+            movesList = (
+                <ol> {moves} </ol>
+            );
+        }   
 
         // Calculate Winner
         let status;
@@ -132,9 +154,11 @@ class Game extends React.Component {
                         onClick={(i) => this.handleClick(i)}
                     />
                 </div>
-                <div className="game-info">
+                <div className="game-info">                    
                     <div>{status}</div>
-                    <ol>{moves}</ol>
+                    <br />
+                    <button onClick={() => this.handleToggleAscending()}>{ this.state.ascending ? "Ascending" : "Descending" }</button>                    
+                    {movesList}
                 </div>
             </div>
         );
